@@ -51,46 +51,42 @@
             });
             return params;
         }
-
-        function setLanguage(lang) {
+    
+        function setLanguage(lang, ageRequirement) {
             const messages = {
                 "el-GR": {
-                    title: "Ηλικιακός Περιορισμός",
-                    message: "Λυπούμαστε, πρέπει να είστε άνω των {0} ετών για να επισκεφτείτε αυτόν τον ιστότοπο.",
+                    title: "Περιορισμός Ηλικίας",
+                    message: "Λυπούμαστε, αλλά πρέπει να είσαι τουλάχιστον {0} ετών για να εισέλθεις στον ιστότοπο.",
                     returnBtn: "Επιστροφή"
                 },
                 "en-US": {
                     title: "Age Restriction",
-                    message: "Sorry, you must be over {0} years old to visit this site.",
+                    message: "Sorry, but you must be at least {0} years old to enter the site.",
                     returnBtn: "Go Back"
                 }
             };
-
+    
             if (messages[lang]) {
                 document.getElementById("title").textContent = messages[lang].title;
                 document.getElementById("message").textContent = messages[lang].message.replace("{0}", ageRequirement);
                 document.getElementById("returnBtn").textContent = messages[lang].returnBtn;
             }
         }
-
+    
         function setStyles(accentColor) {
-            const root = document.documentElement;
-            root.style.setProperty('--accent-color', '#' + accentColor);
             document.querySelector('.accent-color').style.color = '#' + accentColor;
             document.querySelector('.btn-accent').style.backgroundColor = '#' + accentColor;
             document.querySelector('.btn-accent').style.borderColor = '#' + accentColor;
-            // Adjust for a darker shade on hover
-            document.querySelector('.btn-accent:hover').style.backgroundColor = '#' + parseInt(accentColor, 16).toString(16);
-            document.querySelector('.btn-accent:hover').style.borderColor = '#' + parseInt(accentColor, 16).toString(16);
         }
-
+    
         $(document).ready(function() {
             const queryParams = getQueryParams();
             const ageRequirement = queryParams.age || "18"; // Default age requirement is 18
-            if (queryParams.lang) setLanguage(queryParams.lang);
-            if (queryParams.accent) setStyles(queryParams.accent);
+            setLanguage(queryParams.lang, ageRequirement);
+            setStyles(queryParams.accent);
             if (queryParams.origin) document.getElementById("returnBtn").href = "https://" + queryParams.origin;
         });
     </script>
+
 </body>
 </html>
