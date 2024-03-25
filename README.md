@@ -1,2 +1,42 @@
-# AgeVerification
-Customizable universal age verification page
+# Age Verification Page
+
+This repository hosts a universal age verification page designed to be easily integrated with any website requiring age verification. It allows for dynamic customization through URL parameters, including changing the accent color, the language of the content, and the origin website to return to.
+
+## Features
+
+- **Dynamic Customization**: Customize the appearance and language of the age verification page via URL parameters.
+- **Multi-Language Support**: Currently supports English (`en-US`) and Greek (`el-GR`), with the option to easily add more languages.
+- **Accent Color Customization**: Adjust the accent color of the page to match your website's branding.
+
+## How to Use
+
+To use the age verification page, append the required query parameters to the URL:
+
+```
+https://<your-github-username>.github.io/<your-repo-name>/?origin=<your-site-domain>&accent=<accent-color>&lang=<language-code>
+```
+
+Replace the placeholders as follows:
+- `<your-github-username>`: Your GitHub username.
+- `<your-repo-name>`: The name of the repository where the age verification page is hosted.
+- `<your-site-domain>`: The domain of your website (where users will return if they are over the age requirement).
+- `<accent-color>`: The accent color for the page, without the `#` (e.g., `9C865B`).
+- `<language-code>`: The language code (`en-US` for English, `el-GR` for Greek).
+
+## Customizing
+
+### Adding New Languages
+
+To add support for a new language, modify the `setLanguage` function within the `index.html` file. Add a new case to the `messages` object with the corresponding text for the new language.
+
+### Adjusting Styles
+
+To further customize the styles beyond the accent color, edit the CSS within the `index.html` file. Use custom classes and modify existing ones as needed to achieve the desired appearance.
+
+## Contributing
+
+Contributions are welcome! If you'd like to add more languages or suggest improvements, please feel free to fork the repository, make your changes, and submit a pull request.
+
+## License
+
+This project is open-source and available under the [MIT License](LICENSE).
