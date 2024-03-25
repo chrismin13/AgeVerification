@@ -3,90 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Age Restriction</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Age Verification</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
         body {
-            padding-top: 40px;
             background-color: #f5f5f5;
-            color: #333;
-        }
-        .accent-color {
-            /* Color will be set by JavaScript */
-        }
-        .centered {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             margin: 0;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-            width: 80%;
         }
-        .btn-accent {
-            /* Color will be set by JavaScript */
-            color: #fff;
+        .verification-container {
+            display: none; /* Hide until content is set */
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-        .btn-accent:hover {
-            /* Darker shade for hover will be set by JavaScript */
+        .btn-custom {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="centered text-center">
-            <h1 id="title" class="accent-color">Age Restriction</h1>
-            <p id="message">Sorry, you must be over {0} years old to visit this site.</p>
-            <a href="#" class="btn btn-accent" id="returnBtn">Go Back</a>
-        </div>
+    <div class="verification-container" id="verificationContainer">
+        <h1 id="title">Age Verification</h1>
+        <p id="description">You must be of a certain age to access this content.</p>
+        <a href="#" class="btn btn-custom" id="returnBtn">Return to Website</a>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script>
-        function getQueryParams() {
-            const params = {};
-            window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) {
-                params[key] = value;
-            });
-            return params;
-        }
-    
-        function setLanguage(lang, ageRequirement) {
-            const messages = {
-                "el-GR": {
-                    title: "Περιορισμός Ηλικίας",
-                    message: "Λυπούμαστε, αλλά πρέπει να είσαι τουλάχιστον {0} ετών για να εισέλθεις στον ιστότοπο.",
-                    returnBtn: "Επιστροφή"
-                },
-                "en-US": {
-                    title: "Age Restriction",
-                    message: "Sorry, but you must be at least {0} years old to enter the site.",
-                    returnBtn: "Go Back"
-                }
-            };
-    
-            if (messages[lang]) {
-                document.getElementById("title").textContent = messages[lang].title;
-                document.getElementById("message").textContent = messages[lang].message.replace("{0}", ageRequirement);
-                document.getElementById("returnBtn").textContent = messages[lang].returnBtn;
-            }
-        }
-    
-        function setStyles(accentColor) {
-            document.querySelector('.accent-color').style.color = '#' + accentColor;
-            document.querySelector('.btn-accent').style.backgroundColor = '#' + accentColor;
-            document.querySelector('.btn-accent').style.borderColor = '#' + accentColor;
-        }
-    
         $(document).ready(function() {
-            const queryParams = getQueryParams();
-            const ageRequirement = queryParams.age || "18"; // Default age requirement is 18
-            setLanguage(queryParams.lang, ageRequirement);
-            setStyles(queryParams.accent);
-            if (queryParams.origin) document.getElementById("returnBtn").href = "https://" + queryParams.origin;
+            // Function to get URL parameters
+            function getUrlParameter(name) {
+                name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+                var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+                var results = regex.exec(location.search);
+                return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+            }
+
+            // Set the language of the page
+            function setLanguage(lang) {
+                const messages = {
+                    "en-US": {
+                        title: "Age Verification",
+                        description: "You must be at least {age} years old to access this site.",
+                    },
+                    "el-GR": {
+                        title: "Επαλήθευση Ηλικίας",
+                        description: "Πρέπει να είστε τουλάχιστον {age} ετών για να έχετε πρόσβαση σε αυτόν τον ιστότοπο.",
+                    },
+                    // Add more languages here
+                };
+
+                const age = getUrlParameter('age') || '18'; // Default age
+                const langMessages = messages[lang] || messages["en-US"]; // Default to English
+                $('#title').text(langMessages.title);
+                $('#description').text(langMessages.description.replace('{age}', age));
+            }
+
+            // Set accent color
+            function setAccentColor(color) {
+                $('.btn-custom').css('background-color', '#' + color);
+            }
+
+            // Set return URL
+            function setReturnUrl(origin) {
+                $('#returnBtn').attr('href', 'http://' + origin);
+            }
+
+            // Initialize page with URL parameters and show content
+            function initPage() {
+                const lang = getUrlParameter('lang');
+                const accentColor = getUrlParameter('accent');
+                const origin = getUrlParameter('origin');
+                setLanguage(lang);
+                setAccentColor(accentColor);
+                setReturnUrl(origin);
+                
+                // Show the content after initialization
+                $('#verificationContainer').css('display', 'block');
+            }
+
+            initPage();
         });
     </script>
-
 </body>
 </html>
