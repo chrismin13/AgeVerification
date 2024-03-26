@@ -8,6 +8,10 @@ This is an easily customizable page to redirect to after "No" on an age verifica
 
 ![Google Example](image.png)
 
+See it in action:
+
+[Cava365](https://cava365.gr)
+
 ## Features
 
 - **Dynamic Customization**: Customize the appearance, language, and age requirement of the age verification page via URL parameters.
