@@ -1,6 +1,12 @@
 # Age Verification Page
 
-This repository hosts a universal age verification page designed to be easily integrated with any website requiring age verification. It allows for dynamic customization through URL parameters, including changing the accent color, the language of the content, the origin website to return to, and the age requirement.
+This is an easily customizable page to redirect to after "No" on an age verification dialogue. You can customize it to fit your website's color scheme.
+
+# Example
+
+[https://chrismin13.github.io/AgeVerification/?origin=google.com&accent=4285F4&lang=en-US&age=18](https://chrismin13.github.io/AgeVerification/?origin=google.com&accent=4285F4&lang=en-US&age=18)
+
+![Google Example](image.png)
 
 ## Features
 
@@ -37,6 +43,6 @@ To further customize the styles beyond the accent color, edit the CSS within the
 
 Contributions are welcome! If you'd like to add more languages, adjust the age verification logic, or suggest other improvements, please feel free to fork the repository, make your changes, and submit a pull request.
 
-## License
+## License and Disclaimers
 
-This project is open-source and available under the [MIT License](LICENSE).
+This project is open-source and available under the [MIT License](LICENSE). ChatGPT was used for the creation of this website.
