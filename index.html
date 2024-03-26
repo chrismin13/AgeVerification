@@ -84,7 +84,11 @@
             const ageRequirement = queryParams.age || "18"; // Default age requirement is 18
             setLanguage(queryParams.lang, ageRequirement);
             setStyles(queryParams.accent);
-            if (queryParams.origin) document.getElementById("returnBtn").href = "https://" + queryParams.origin;
+            if (queryParams.origin) {
+                document.getElementById("returnBtn").href = "https://" + queryParams.origin;
+            } else {
+                document.getElementById("returnBtn").style.display = "none";
+            }
         });
     </script>
 
